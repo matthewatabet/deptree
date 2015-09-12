@@ -9,7 +9,7 @@ import unittest
 
 from deptree.tree import get_deptree
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), 'test', 'data')
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 SIMPLE_TEST = os.path.join(DATA_DIR, 'simple')
 
 

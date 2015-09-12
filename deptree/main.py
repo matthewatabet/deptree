@@ -1,4 +1,4 @@
-import argparse
+from argparse import ArgumentParser
 
 from . import constants
 from . tree import get_deptree
@@ -8,7 +8,7 @@ def run(args):
     '''
     Parse command line arguments, run dependencies, print results.
     '''
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     parser.add_argument('src_files',
                         nargs='+',
                         help='Source files to parse for depedencies.')

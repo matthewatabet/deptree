@@ -6,17 +6,19 @@ Tests for main.py
 from mock import patch
 import unittest
 
-from . main import run
-from . constants import DEFAULT_DEPENDENCY_REGEX
+from deptree.main import ArgumentParser
+from deptree.main import run
+from deptree.constants import DEFAULT_DEPENDENCY_REGEX
 
 
 class TestRun(unittest.TestCase):
     '''
     Test main.run()
     '''
-    @patch('deptree.main.argparse._sys.exit')
+    @patch.object(ArgumentParser, 'exit')
+    @patch.object(ArgumentParser, 'print_usage')
     @patch('deptree.main.get_deptree')
-    def test_run_no_args(self, tree_mock, exit_mock):
+    def test_run_no_args(self, tree_mock, usage_mock, exit_mock):
         '''
         Test that the tree is not computed if no files were specified.
         '''
