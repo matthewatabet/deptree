@@ -5,29 +5,33 @@ from collections import OrderedDict
 import os
 import re
 
-from . import constants
+from . constants import DEFAULT_DEPENDENCY_REGEX
+from . constants import DEFAULT_EXTENSION
 
 
-def get_deptree(src_files, pattern=constants.DEFAULT_DEPENDENCY_REGEX):
+def get_deptree(src_files,
+                pattern=DEFAULT_DEPENDENCY_REGEX,
+                extension=DEFAULT_EXTENSION):
     '''
     Given a list of source files and a regular expression string
     representing the dependency pattern, return an ordered dictionary
     mapping source files to their upstream dependencies.
     '''
-    regex = re.compile(pattern)
-    depedencies = OrderedDict()
+    regex = re.compile(pattern, re.MULTILINE)
+    dependencies = OrderedDict()
     files_to_parse = src_files[:]
     while files_to_parse:
         file_to_parse = files_to_parse.pop()
-        deps = _file_depedencies(file_to_parse, regex)
-        depedencies.setdefault(file_to_parse, []).extend(deps)
+        dependencies.setdefault(file_to_parse, [])
+        deps = _file_depedencies(file_to_parse, regex, extension)
         for dep in deps:
             if dep not in files_to_parse:
                 files_to_parse.append(dep)
-    return depedencies
+            dependencies.setdefault(dep, []).append(file_to_parse)
+    return dependencies
 
 
-def _file_depedencies(src_file, regex):
+def _file_depedencies(src_file, regex, extension):
     '''
     Given the path to a source file, parse the file for depedencies.
     Return a list of dependent files.
@@ -41,6 +45,7 @@ def _file_depedencies(src_file, regex):
     parent_dir = os.path.dirname(src_file)
     dependencies = []
     for dependency in regex.findall(text):
-        dependencies.append(os.path.normpath(os.path.join(parent_dir,
-                                                          dependency)))
+        filename = dependency + extension
+        filepath = os.path.normpath(os.path.join(parent_dir, filename))
+        dependencies.append(filepath)
     return dependencies

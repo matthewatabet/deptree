@@ -16,4 +16,8 @@ def run(args):
                         help='Regular expression used to find depdencies.',
                         default=constants.DEFAULT_DEPENDENCY_REGEX)
     args = parser.parse_args(args)
-    get_deptree(args.src_files, pattern=args.pattern)
+    resolved_tree = get_deptree(args.src_files, pattern=args.pattern)
+
+    # Print tree
+    for source_file, depdencies in resolved_tree.items():
+        print source_file, ' '.join(depdencies)
