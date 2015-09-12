@@ -1,7 +1,7 @@
 import argparse
 
 from . import constants
-from . import tree
+from . tree import get_deptree
 
 
 def run(args):
@@ -16,4 +16,4 @@ def run(args):
                         help='Regular expression used to find depdencies.',
                         default=constants.DEFAULT_DEPENDENCY_REGEX)
     args = parser.parse_args(args)
-    tree.get_deptree(args.src_files, pattern=args.pattern)
+    get_deptree(args.src_files, pattern=args.pattern)

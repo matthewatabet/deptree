@@ -1,7 +1,7 @@
 '''
 Utilities for parsing source file depedencies.
 '''
-from collection import OrderedDict
+from collections import OrderedDict
 import os
 import re
 
