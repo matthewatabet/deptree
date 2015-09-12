@@ -9,14 +9,14 @@ def run(args):
     Parse command line arguments, run dependencies, print results.
     '''
     parser = ArgumentParser()
-    parser.add_argument('src_files',
+    parser.add_argument('src_file',
                         nargs='+',
                         help='Source files to parse for depedencies.')
     parser.add_argument('-p', '--pattern',
                         help='Regular expression used to find depdencies.',
                         default=constants.DEFAULT_DEPENDENCY_REGEX)
     args = parser.parse_args(args)
-    resolved_tree = get_deptree(args.src_files, pattern=args.pattern)
+    resolved_tree = get_deptree(args.src_file, pattern=args.pattern)
 
     # Print tree
     for source_file, depdencies in resolved_tree.items():
