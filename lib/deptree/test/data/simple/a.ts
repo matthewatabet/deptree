@@ -1,5 +1,6 @@
 import b = require("./b")  // another inlined comment
 import c = require("./c")  /* here's an inlined comment */
+import g_t = require("./g t") // space in file name
 
 # this comment should be ignored
 

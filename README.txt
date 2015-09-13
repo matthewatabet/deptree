@@ -76,7 +76,8 @@ type of DepdendencyTree class could have a number of DepdendencyNode children,
 each with its own children. A DepdendencyVisitor class could then walk this
 tree in arbitrary ways to produce forward or reverse depdendency graphs, etc.
 However, such an abstract design carries its own maintenance cost and risks
-(primarily a steep learning curve for other developers). Given that the 
+(primarily a steep learning curve for other developers and additional lines of
+code, each with the potential for their own additional bugs). Given that the 
 current implementation is so terse, it can easily be swapped later for a more
 generic and abstract solution if needed.
 
