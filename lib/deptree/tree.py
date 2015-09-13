@@ -19,7 +19,7 @@ def get_deptree(src_files,
     '''
     regex = re.compile(pattern, re.MULTILINE)
     dependencies = OrderedDict()
-    files_to_parse = src_files[:]
+    files_to_parse = [s.replace(os.getcwd() + '/', '', 1) for s in src_files]
     while files_to_parse:
         file_to_parse = files_to_parse.pop()
         dependencies.setdefault(file_to_parse, [])

@@ -1,2 +1,5 @@
-#! /bin/sh
-python -m unittest discover
+# ! /bin/bash
+
+# Get the path to the lib directory of the project.
+start_dir=$(dirname $0)/../lib
+python -m unittest discover --start-directory ${start_dir}
