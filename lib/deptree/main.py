@@ -1,6 +1,8 @@
 from argparse import ArgumentParser
+from logging import basicConfig
 
-from . import constants
+from . constants import DEFAULT_DEPENDENCY_REGEX
+from . constants import LOGGER_FORMAT
 from . tree import get_deptree
 
 
@@ -14,10 +16,13 @@ def run(args):
                         help='Source files to parse for depedencies.')
     parser.add_argument('-p', '--pattern',
                         help='Regular expression used to find depdencies.',
-                        default=constants.DEFAULT_DEPENDENCY_REGEX)
+                        default=DEFAULT_DEPENDENCY_REGEX)
     args = parser.parse_args(args)
-    resolved_tree = get_deptree(args.src_file, pattern=args.pattern)
 
-    # Print tree
+    # Set up basic logging configuration.
+    basicConfig(format=LOGGER_FORMAT)
+
+    # Get reverse-depedency tree and print.
+    resolved_tree = get_deptree(args.src_file, pattern=args.pattern)
     for source_file, depdencies in resolved_tree.items():
-        print source_file, ' '.join(depdencies)
+        print source_file, '<-', ' '.join(depdencies)

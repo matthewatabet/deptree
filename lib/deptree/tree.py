@@ -2,6 +2,7 @@
 Utilities for parsing source file depedencies.
 '''
 from collections import OrderedDict
+from logging import getLogger
 import os
 import re
 
@@ -36,20 +37,23 @@ def _file_depedencies(src_file, regex, extension):
     Given the path to a source file, parse the file for depedencies.
     Return a list of dependent files.
     '''
+    log = getLogger(__name__)
     try:
         with open(src_file) as f:
             text = f.read()
     except IOError:
-        return []  # TODO: what to do with missing files?
+        log.warning('Could not open %s.' % (src_file))
+        return []
 
     parent_dir = os.path.dirname(src_file)
     dependencies = []
     matches = [m.groupdict() for m in regex.finditer(text)]
     for match in matches:
-        dependency = match.get('path')
-        if dependency is None:
+        path = match.get('path')
+        if path is None:
             continue
-        filename = dependency + extension
-        filepath = os.path.normpath(os.path.join(parent_dir, filename))
-        dependencies.append(filepath)
+        if not path.endswith(extension):
+            path += extension
+        path = os.path.normpath(os.path.join(parent_dir, path))
+        dependencies.append(path)
     return dependencies
