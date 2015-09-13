@@ -44,7 +44,11 @@ def _file_depedencies(src_file, regex, extension):
 
     parent_dir = os.path.dirname(src_file)
     dependencies = []
-    for dependency in regex.findall(text):
+    matches = [m.groupdict() for m in regex.finditer(text)]
+    for match in matches:
+        dependency = match.get('path')
+        if dependency is None:
+            continue
         filename = dependency + extension
         filepath = os.path.normpath(os.path.join(parent_dir, filename))
         dependencies.append(filepath)

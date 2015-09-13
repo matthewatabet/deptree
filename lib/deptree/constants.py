@@ -3,6 +3,6 @@ Library constants.
 '''
 
 DEFAULT_DEPENDENCY_REGEX =\
-    '''^import\s+\w+\s*=\s*require\(\s*['"](\.[\.\w/]+)['"]\s*\).*'''
+    '''^import\s+\w+\s*=\s*require\(\s*(?P<quote>['"])(?P<path>\.[\.\w/]+)(?P=quote)\s*\)'''
 
 DEFAULT_EXTENSION = '.ts'
