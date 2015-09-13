@@ -20,13 +20,18 @@ def get_deptree(src_files,
     '''
     regex = re.compile(pattern, re.MULTILINE)
     dependencies = OrderedDict()
-    files_to_parse = [s.replace(os.getcwd() + '/', '', 1) for s in src_files]
+    files_to_parse = [s.replace(os.getcwd() + '/', '', 1) for s
+                      in reversed(src_files)]
+    # To avoid parsing files twice, we keep track of which files
+    # have already been processed.
+    parsed_files = set([])
     while files_to_parse:
         file_to_parse = files_to_parse.pop()
         dependencies.setdefault(file_to_parse, [])
+        parsed_files.add(file_to_parse)
         deps = _file_depedencies(file_to_parse, regex, extension)
         for dep in deps:
-            if dep not in files_to_parse:
+            if dep not in set(files_to_parse).union(parsed_files):
                 files_to_parse.append(dep)
             dependencies.setdefault(dep, []).append(file_to_parse)
     return dependencies

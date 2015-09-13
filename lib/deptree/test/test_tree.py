@@ -14,6 +14,7 @@ from deptree.tree import get_deptree
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 SIMPLE_TEST = os.path.join(DATA_DIR, 'simple')
 MISSING_TEST = os.path.join(DATA_DIR, 'missing')
+MULTIPLE_TEST = os.path.join(DATA_DIR, 'multiple')
 
 
 class TestTree(unittest.TestCase):
@@ -56,6 +57,30 @@ class TestTree(unittest.TestCase):
         log.warning.assert_has_calls(
             [call('Could not open lib/deptree/test/data/missing/c.ts'),
              call('Could not open lib/deptree/test/data/missing/b.ts')])
+
+    def test_multiple_files(self):
+        '''
+        Test passing multiple files to get_deptree.
+        Exercises referencing files in parent directory.
+        '''
+        file_a = os.path.join(MULTIPLE_TEST, 'sub', 'a.ts')
+        file_b = os.path.join(MULTIPLE_TEST, 'sub', 'b.ts')
+        result = get_deptree([file_a, file_b])
+        expected = OrderedDict([('lib/deptree/test/data/multiple/sub/a.ts',
+                                 []),
+                                ('lib/deptree/test/data/multiple/c.ts',
+                                 ['lib/deptree/test/data/multiple/sub/a.ts',
+                                  'lib/deptree/test/data/multiple/sub/b.ts']),
+                                ('lib/deptree/test/data/multiple/d.ts',
+                                 ['lib/deptree/test/data/multiple/sub/a.ts',
+                                  'lib/deptree/test/data/multiple/c.ts',
+                                  'lib/deptree/test/data/multiple/sub/b.ts']),
+                                ('lib/deptree/test/data/multiple/f.ts',
+                                 ['lib/deptree/test/data/multiple/d.ts']),
+                                ('lib/deptree/test/data/multiple/sub/b.ts',
+                                 [])])
+        self.assertEqual(result, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
