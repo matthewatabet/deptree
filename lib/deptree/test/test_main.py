@@ -9,6 +9,7 @@ import unittest
 from deptree.main import ArgumentParser
 from deptree.main import run
 from deptree.constants import DEFAULT_DEPENDENCY_REGEX
+from deptree.constants import DEFAULT_EXTENSION
 
 
 class TestRun(unittest.TestCase):
@@ -34,6 +35,7 @@ class TestRun(unittest.TestCase):
         '''
         run(['myfile'])
         tree_mock.assert_called_once_with(['myfile'],
+                                          extension=DEFAULT_EXTENSION,
                                           pattern=DEFAULT_DEPENDENCY_REGEX)
 
     @patch('deptree.main.get_deptree')
@@ -45,15 +47,18 @@ class TestRun(unittest.TestCase):
         tree_mock.assert_called_once_with(['file_1',
                                            'file_2',
                                            'file_3'],
+                                          extension=DEFAULT_EXTENSION,
                                           pattern=DEFAULT_DEPENDENCY_REGEX)
 
     @patch('deptree.main.get_deptree')
-    def test_run_pattern_override(self, tree_mock):
+    def test_run_overrides(self, tree_mock):
         '''
-        Test running with pattern override.
+        Test running with pattern and extension overrides.
         '''
-        run(['myfile', '-p', 'some_regex'])
-        tree_mock.assert_called_once_with(['myfile'], pattern='some_regex')
+        run(['myfile', '-p', 'some_regex', '-e', '.txt'])
+        tree_mock.assert_called_once_with(['myfile'],
+                                          pattern='some_regex',
+                                          extension='.txt')
 
 
 if __name__ == '__main__':

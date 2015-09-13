@@ -42,7 +42,7 @@ def _file_depedencies(src_file, regex, extension):
         with open(src_file) as f:
             text = f.read()
     except IOError:
-        log.warning('Could not open %s.' % (src_file))
+        log.warning('Could not open %s' % (src_file))
         return []
 
     parent_dir = os.path.dirname(src_file)

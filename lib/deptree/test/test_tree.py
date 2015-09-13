@@ -37,7 +37,7 @@ class TestTree(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @patch('deptree.tree.getLogger')
-    def test_missing_references(self, log_mock):
+    def test_bad_references(self, log_mock):
         '''
         Test references which don't exist on disk.
         The logger should issue warnings in this case.
@@ -54,8 +54,8 @@ class TestTree(unittest.TestCase):
                                  ['lib/deptree/test/data/missing/a.ts'])])
         self.assertEqual(result, expected)
         log.warning.assert_has_calls(
-            [call('Could not open lib/deptree/test/data/missing/c.ts.'),
-             call('Could not open lib/deptree/test/data/missing/b.ts.')])
+            [call('Could not open lib/deptree/test/data/missing/c.ts'),
+             call('Could not open lib/deptree/test/data/missing/b.ts')])
 
 if __name__ == '__main__':
     unittest.main()
