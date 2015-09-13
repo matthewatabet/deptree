@@ -68,7 +68,17 @@ OrderedDict([('myscript.ts', []),
              ('os.ts', ['myscript.ts'])])
 
 
-* Development notes
+* Implementation notes
+
+- While a more abstract implementation is certainly possible, I've chosen for
+a concrete solution which solves the problem at hand. In other words, some
+type of DepdendencyTree class could have a number of DepdendencyNode children,
+each with its own children. A DepdendencyVisitor class could then walk this
+tree in arbitrary ways to produce forward or reverse depdendency graphs, etc.
+However, such an abstract design carries its own maintenance cost and risks
+(primarily a steep learning curve for other developers). Given that the 
+current implementation is so terse, it can easily be swapped later for a more
+generic and abstract solution if needed.
 
 - deptree was written to be pep8 compliant within reason. Exceptions are
 occasionally made for readability.
@@ -86,8 +96,12 @@ objects at runtime. See https://pypi.python.org/pypi/mock for more info.
     ./lib/deptree/test <- unittests and test data
 
 - git was used for source control, virtualenv for environment configuration,
-and setuptools for deployment.
+and setuptools for deployment. flake8 was used for linting.
 
 - The 'deptree' executable is a very thin wrapper around deptree.main.run.
 Housing most of the executable logic within the 'deptree' package allows
-for the executable logic to by easily unittested
+for the executable logic to by easily tested.
+
+- To keep code terse, dot notation from imported libraries is avoided as much
+as possible. Thus, 'from argparse import ArgumentParser' is preferred over
+'import argparse'.

@@ -39,5 +39,8 @@ def run(args):
     resolved_tree = get_deptree(args.src_file,
                                 pattern=args.pattern,
                                 extension=args.extension)
-    for source_file, depdencies in resolved_tree.items():
-        print source_file, '<-', ' '.join(depdencies)
+    for source, dependents in resolved_tree.items():
+        # Protect spaces in filenames.
+        esc_source = source.replace(' ', '\\ ')
+        esc_dependents = [d.replace(' ', '\\ ') for d in dependents]
+        print esc_source, '<-', ' '.join(esc_dependents)
