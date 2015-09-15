@@ -33,6 +33,8 @@ class TestTree(unittest.TestCase):
                                  ['lib/deptree/test/data/simple/a.ts']),
                                 ('lib/deptree/test/data/simple/g t.ts',
                                  ['lib/deptree/test/data/simple/a.ts']),
+                                ('lib/deptree/test/data/simple/e-f.ts',
+                                 ['lib/deptree/test/data/simple/a.ts']),
                                 ('lib/deptree/test/data/simple/e.ts',
                                  ['lib/deptree/test/data/simple/c.ts']),
                                 ('lib/deptree/test/data/simple/d.ts',

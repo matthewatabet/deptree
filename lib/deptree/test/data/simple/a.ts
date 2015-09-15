@@ -8,6 +8,9 @@ import g_t = require("./g t") // space in file name
 # be excluded.
 import d = require('./d")
 
+# import a filename with a dash
+import e_f = require("./e-f")
+
 # These imports are to be ignored, since they don't begin
 # with ./ or ../
 import x = requires("x")

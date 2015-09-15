@@ -57,9 +57,7 @@ deptree -h
 Deptree may be used within other Python applications:
 
 import deptree
-from pprint import pprint
 dependencies = deptree.get_deptree(['myscript.ts'])
-
 
 This will reutrn an OrderedDictionary mapping source files to their depedents:
 
@@ -70,11 +68,13 @@ OrderedDict([('myscript.ts', []),
 
 * Implementation notes
 
-- While a more abstract implementation is certainly possible, I've chosen for
-a concrete solution which solves the problem at hand. In other words, some
-type of DepdendencyTree class could have a number of DepdendencyNode children,
-each with its own children. A DepdendencyVisitor class could then walk this
-tree in arbitrary ways to produce forward or reverse depdendency graphs, etc.
+- While a more abstract implementation is certainly possible, I've chosen
+a concrete solution (a simple OrderedDict) which solves the problem at hand.
+In other words, some type of DepdendencyTree class could have a number of
+DepdendencyNode children, each with its own children. A DepdendencyVisitor
+class could then walk this tree in arbitrary ways to produce forward or
+reverse depdendency graphs, etc.
+
 However, such an abstract design carries its own maintenance cost and risks
 (primarily a steep learning curve for other developers and additional lines of
 code, each with the potential for their own additional bugs). Given that the 
