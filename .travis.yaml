@@ -1,0 +1,2 @@
+install python2 ./setup.py
+script ./bin/runtests
