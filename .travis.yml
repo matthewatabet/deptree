@@ -1,5 +1,7 @@
 language: python
 pyhton:
     - "2.7"
-install: ./setup.py install
+install:
+    - pip install --upgrade setuptools
+    - ./setup.py install
 script: ./bin/runtests
