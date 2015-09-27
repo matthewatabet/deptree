@@ -1,5 +1,5 @@
 language: python
 pyhton:
     - "2.7"
-install: ./setup.py
+install: ./setup.py install
 script: ./bin/runtests
