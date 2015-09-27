@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/matthewatabet/deptree.svg?branch=master)](https://travis-ci.org/matthewatabet/deptree)
+
 * deptree
 
 deptree is a simple utility for printing the reverse depedency tree of a set
