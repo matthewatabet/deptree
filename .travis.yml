@@ -1,2 +1,5 @@
-install python2 ./setup.py
-script ./bin/runtests
+language: python
+pyhton:
+    - "2.7"
+install: ./setup.py
+script: ./bin/runtests
