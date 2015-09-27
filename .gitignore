@@ -1,5 +1,6 @@
 *.swp
 *.pyc
+.token
 build/*
 dist/*
 lib/deptree.egg-info/*
